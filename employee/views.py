@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
-
+from django.core.files.storage import default_storage
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
@@ -76,3 +76,8 @@ def EmployeeAPI(request,id=0):
         employee.delete()
         return JsonResponse("Deleted Employee successfully.", safe= False)
 
+@csrf_exempt
+def saveFile(request):
+    file = request.FILES['uploadedFiles']
+    file_name = default_storage.save(file.name, file)
+    return JsonResponse(file_name, safe= False)
