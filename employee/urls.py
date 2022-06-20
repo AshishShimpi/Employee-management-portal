@@ -6,8 +6,8 @@ from django.conf.urls.static import static
 from django.conf import Settings
 
 urlpatterns = [
-    re_path('^departments/$',departmentApi),
-    re_path('^departments/([0-9]+)$',departmentApi),
+    re_path('^department/$',departmentApi),
+    re_path('^department/([0-9]+)$',departmentApi),
 
     re_path('^employee/$',EmployeeAPI),
     re_path('^employee/([0-9]+)$',EmployeeAPI),

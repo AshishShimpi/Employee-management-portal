@@ -1,0 +1,52 @@
+<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" 
+    data-bs-target="#exampleModal" 
+    (click)="addClick()"
+    data-backdrop = "static" data-keyboard="false">
+    Add Department
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"            
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
+                <button type="button" class="btn-close" 
+                    data-bs-dismiss="modal" aria-label="Close"
+                    (click)="closeClick()"> </button>
+            </div>
+            <div class="modal-body">
+                <app-add-edit-emp (updateList)="closeClick()" [emp]= emp *ngIf="ActiveAddEditEmpComponent"></app-add-edit-emp>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table align-middle table-hover table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Department</th>
+            <th>Date of Joining</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr *ngFor="let details of employeeList ; index as i">
+            <td>{{details.id}}</td>
+            <td>{{details.name}}</td>
+            <td>{{details.department}}</td>
+            <td>{{details.dateOfJoining}}</td>
+            <td class="d-flex gap-2">
+                <button type="button" class="btn btn-secondary mr-4" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal" (click)="editClick(details)" data-backdrop="static"
+                    data-keyboard="false">Edit</button>
+
+                <button type="button" (click)="deleteEmp(details.id)"
+                    class="btn btn-secondary mr-1">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

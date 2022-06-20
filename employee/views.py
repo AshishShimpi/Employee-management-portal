@@ -42,7 +42,7 @@ def departmentApi(request, id = 0):
     
     if request.method == 'DELETE':
         
-        department = get_object_or_404(Departments.objects.get(departmentId = id))
+        department = get_object_or_404(Departments, departmentId = id)
         department.delete()
         return JsonResponse("Deleted department successfully", safe= False)
 
