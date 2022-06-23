@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class SharedService {
   readonly APIurl = 'http://127.0.0.1:8000/'
+  readonly PhotoUrl = "http://127.0.0.1:8000/media/";
 
   constructor(private http: HttpClient) { }
 
@@ -46,8 +47,8 @@ export class SharedService {
     return this.http.delete(this.APIurl + 'employee/' + val);
   }
 
-  uploadFile(val: any) {
-    return this.http.post(this.APIurl + 'saveFile/', val)
+  uploadFile(val: FormData) {
+    return this.http.post(this.APIurl + 'saveFile', val)
   }
 
 }

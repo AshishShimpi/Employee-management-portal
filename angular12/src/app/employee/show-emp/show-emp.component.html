@@ -1,12 +1,14 @@
-<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" 
-    data-bs-target="#exampleModal" 
-    (click)="addClick()"
-    data-backdrop = "static" data-keyboard="false">
-    Add Department
-</button>
+<div class="addbutton">
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" 
+        data-bs-target="#exampleModal" 
+        (click)="addClick()"
+        data-backdrop = "static" data-keyboard="false">
+        Add Department
+    </button>
+</div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"            
-    aria-hidden="true">
+data-bs-backdrop = "static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,8 +43,7 @@
             <td>{{details.dateOfJoining}}</td>
             <td class="d-flex gap-2">
                 <button type="button" class="btn btn-secondary mr-4" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal" (click)="editClick(details)" data-backdrop="static"
-                    data-keyboard="false">Edit</button>
+                    data-bs-target="#exampleModal" (click)="editClick(details)" >Edit</button>
 
                 <button type="button" (click)="deleteEmp(details.id)"
                     class="btn btn-secondary mr-1">Delete</button>

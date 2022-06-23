@@ -1,1 +1,42 @@
-<p>add-edit-emp works!</p>
+<div class="d-flex flex-row bd-highlight mb-3 gap-3">
+    <div class="form-group row mr-4" style="width: 60%;">
+
+        <label class="col-sm-5 col-form-label" for="name">Employee name</label>
+        <div class="col-sm-7">
+            <input class="form-control" type="text" name="name" id="name" [(ngModel)]="name"
+                placeholder="Enter Employee name">
+        </div>
+
+        <label class="col-sm-5 col-form-label" for="dname">Department name</label>
+        <div class="col-sm-7">
+            <select class="form-control" name="dname" id="dname" [(ngModel)]="department">
+                <option *ngFor="let dep of departmentList" [ngValue]="dep.departmentName">
+                    {{dep.departmentName}}
+                </option>
+            </select>
+        </div>
+
+        <label class="col-sm-5 col-form-label" for="date">Date of Joining </label>
+        <div class="col-sm-7">
+            <input class="form-control" type="date" name="date" id="date" [(ngModel)]="dateOfJoining">
+        </div>
+
+    </div>
+
+    <div class="ml-4 bd-highlight" style="width: 40%;">
+
+        <img [src]=photoFileURL alt="#NoPhoto" height="200px" width="200px">
+        <input type="file" class="mt-2" (change)="uploadPhoto($event)">
+        <div class="spinner-border text-secondry mt-2" *ngIf="spinner" role="status">
+            <span class="sr-only"></span>
+        </div>
+        <h6 class="text-danger mt-2" *ngIf="uploadFail">Failed to upload File</h6>
+        <h6 class="text-success mt-2" *ngIf="uploadSuccess">
+            Upload Successful</h6>
+    </div>
+</div>
+
+<button class="btn btn-danger btn-m" data-bs-dismiss="modal" aria-label="Close" *ngIf="id == 0"
+    [disabled]="!enableButtons" (click)="addEmployee()" type="button">Add</button>
+<button class="btn btn-danger btn-m" data-bs-dismiss="modal" aria-label="Close" *ngIf="id != 0"
+    [disabled]="!enableButtons" (click)="updateEmployee()" type="button">Update</button>
