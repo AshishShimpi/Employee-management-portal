@@ -1,24 +1,21 @@
-<div class="addbutton">
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" 
-        data-bs-target="#exampleModal" 
-        (click)="addClick()"
-        data-backdrop = "static" data-keyboard="false">
+<div class="addbutton mt-3">
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        (click)="addClick()" data-backdrop="static" data-keyboard="false">
         Add Department
     </button>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"            
-    aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
-                <button type="button" class="btn-close" 
-                    data-bs-dismiss="modal" aria-label="Close"
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     (click)="closeClick()"> </button>
             </div>
             <div class="modal-body">
-                <app-add-edit-dep (updateList)="closeClick()" [dp]= dp *ngIf="ActiveAddEditDepComponent"></app-add-edit-dep>
+                <app-add-edit-dep (updateList)="closeClick()" [dp]=dp *ngIf="ActiveAddEditDepComponent">
+                </app-add-edit-dep>
             </div>
         </div>
     </div>
@@ -27,10 +24,50 @@
 
 <table class="table align-middle table-hover table-striped">
     <thead class="table-dark">
-        <tr >
-            <th >Department ID</th>
-            <th >Department Name</th>
-            <th >Options</th>
+        <tr>
+            <th style="width:40% ;">
+                <div class=" mb-1">
+                    <input class="form-control"   name="id" id="id" placeholder="Filter Id"
+                        [(ngModel)]="filterId" (keyup)="filter()">
+                </div>
+
+                <div class="d-flex align-items-center filter">
+                    <span class="m-2"> Department ID</span>
+                    <button class="btn btn-dark " (click)="sort('departmentId',false)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-down " viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                        </svg>
+                    </button>
+                    
+                    <button class="btn btn-dark "  (click)="sort('departmentId',true)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"  fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                        </svg>
+                    </button>
+                </div>
+            </th>
+            
+            <th style="width:40% ;">
+                <div class="mb-1">
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Filter name"
+                        [(ngModel)]="filterName" (keyup)="filter()">
+                </div>
+                <div class="d-flex align-items-center filter">
+                    <span class="m-2"> Department Name</span>
+                    <button class="btn btn-dark " (click)="sort('departmentName',false)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-down " viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                        </svg>
+                    </button>
+                    
+                    <button class="btn btn-dark "  (click)="sort('departmentName',true)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"  fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                        </svg>
+                    </button>
+                </div>
+            </th>
+            <th style="width:20% ;">Options</th>
         </tr>
     </thead>
     <tbody class="table-group-divider">
@@ -38,12 +75,12 @@
             <td>{{details.departmentId}}</td>
             <td>{{details.departmentName}}</td>
             <td class="d-flex gap-2">
-                <button type="button" class="btn btn-secondary mr-4"
-                data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                (click)="editClick(details)"
-                data-backdrop = "static" data-keyboard="false" >Edit</button>
-                
-                <button type="button" (click)="deleteDept(details.departmentId)" class="btn btn-secondary mr-1">Delete</button>
+                <button type="button" class="btn btn-secondary mr-4" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal" (click)="editClick(details)" data-backdrop="static"
+                    data-keyboard="false">Edit</button>
+
+                <button type="button" (click)="deleteDept(details.departmentId)"
+                    class="btn btn-secondary mr-1">Delete</button>
             </td>
         </tr>
     </tbody>
